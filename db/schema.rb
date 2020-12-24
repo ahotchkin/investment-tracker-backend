@@ -13,18 +13,18 @@
 ActiveRecord::Schema.define(version: 2020_12_23_020728) do
 
   create_table "stocks", force: :cascade do |t|
-    t.date "purchase_date"
     t.string "name"
     t.string "symbol"
     t.string "industry"
     t.string "sector"
-    t.float "number_of_shares"
-    t.decimal "total_spent", precision: 15, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "user_stocks", force: :cascade do |t|
+    t.date "purchase_date"
+    t.float "number_of_shares"
+    t.decimal "total_spent", precision: 15, scale: 2
     t.integer "user_id", null: false
     t.integer "stock_id", null: false
     t.datetime "created_at", precision: 6, null: false
