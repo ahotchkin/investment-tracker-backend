@@ -6,4 +6,7 @@ class Api::V1::UsersController < ApplicationController
     render json: UserSerializer.new(users).serialized_json, status: 200
   end
 
+  def create
+  end
+
 end
