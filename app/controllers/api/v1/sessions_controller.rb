@@ -18,12 +18,16 @@ class Api::V1::SessionsController < ApplicationController
       render json: UserSerializer.new(current_user), status: 200
     else
       render json: {
-        error: "No one logged in"
+        notice: "No one logged in"
       }
     end
   end
 
   def destroy
+    session.clear
+    render json: {
+      notice: "Successfully logged out"
+    }, status: 200
   end
 
 end
