@@ -1,14 +1,30 @@
 class Api::V1::UserStocksController < ApplicationController
 
   def index
-    user_stocks = UserStock.all
+    if logged_in?
+      user_stocks = current_user.user_stocks
 
-    render json: UserStockSerializer.new(user_stocks), status: 200
+      render json: UserStockSerializer.new(user_stocks), status: 200
+    else
+      render json: {
+        error: "You must be logged in to see your stocks"
+      }
+    end
   end
 
-  def new
-    user_stock = UserStock.create(params)
+  def create
+    user_stock = UserStock.new(user_stock_params)
+
+    if user_stock.save
+      render json: UserStockSerializer.new(user_stock), status: 200
+    else
+      resp = {
+        :error => user.errors.full_messages.to_sentence
+      }
+      render json: resp, status: :unprocessable_entity
+    end
   end
+
 
   private
 
